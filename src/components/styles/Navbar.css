@@ -1,0 +1,21 @@
+.Navbar {
+  background: rgb(19, 65, 200);
+  background: linear-gradient(
+    90deg,
+    rgba(19, 65, 200, 1) 0%,
+    rgba(9, 112, 201, 1) 40%,
+    rgba(0, 137, 255, 1) 100%
+  );
+  padding: 10px;
+}
+.Navbar .Navbar_link {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.Navbar .Navbar_link--item {
+  color: white;
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 600;
+}
