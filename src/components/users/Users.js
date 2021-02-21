@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import './Users.css';
+// Allows to connect a component with a reducer
+import { connect } from 'react-redux';
 
 class Users extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      users: []
-    }
-  }
-  componentDidMount() {
-    this.fetchCharacter();
-  }
+  // componentDidMount() {
+  //   this.fetchCharacter();
+  // }
 
   async fetchCharacter() {
     try {
@@ -31,18 +27,18 @@ class Users extends Component {
       console.error(error)
     }
   }
-  putRows = () => (
-    this.state.users.map(user => (
-      < tr key={user.id}>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td><a href={user.link}>Rockers</a></td>
-      </tr >
-    ))
-  );
+  // putRows = () => (
+  //   this.props.users.map(user => (
+  //     < tr key={user.id}>
+  //       <td>{user.name}</td>
+  //       <td>{user.email}</td>
+  //       <td><a href={user.link}>Rockers</a></td>
+  //     </tr >
+  //   ))
+  // );
   render() {
     return (
-      this.state.users ?
+      this.props.users ?
         (<table className="table">
           <thead className="table_header">
             <tr>
@@ -52,7 +48,7 @@ class Users extends Component {
             </tr>
           </thead>
           <tbody className="table_body">
-            {this.putRows()}
+            {/* {this.putRows()} */}
           </tbody>
         </table>)
         :
@@ -60,5 +56,7 @@ class Users extends Component {
     );
   }
 }
-
-export default Users;
+const mapStateToProps = (state) => { 
+  return {users: state.usersReducer};
+}
+export default connect(mapStateToProps, {/*Actions Creators*/})(Users);
