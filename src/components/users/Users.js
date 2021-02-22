@@ -10,11 +10,7 @@ class Users extends Component {
   }
 
   fetchCharacter() {
-    try {
-      this.props.getTodos();
-    } catch (error) {
-      console.error(error)
-    }
+    this.props.getTodos();
   }
   putRows = () => (
     this.props.users.map(user => (
