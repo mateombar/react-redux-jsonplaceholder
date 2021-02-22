@@ -5,25 +5,26 @@ import './Users.css';
 import * as usersAction from '../../actions/usersAction';
 
 class Users extends Component {
-  componentDidMount() {
-    this.fetchCharacter();
-  }
-
-  fetchCharacter() {
+  async componentDidMount() {
     this.props.getTodos();
   }
-  putRows = () => (
-    this.props.users.map(user => (
-      < tr key={user.id}>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td><a href={user.link}>Rockers</a></td>
-      </tr >
-    ))
-  );
+
+  putRows = () => this.props.users.map((user) => (
+    < tr key={user.id}>
+      <td>{user.name}</td>
+      <td>{user.email}</td>
+      <td><a href={user.link}>Rockers</a></td>
+    </tr >
+  ));
   render() {
+    console.log(this.props);
+    if (this.props.error) {
+      return (
+        <h1>NADA QUE HACE</h1>
+      )
+    }
     return (
-      this.props.users.length === 0 ?
+      this.props.loading ?
         (<h3>Loading</h3>)
         :
         (<table className="table">
@@ -35,7 +36,9 @@ class Users extends Component {
             </tr>
           </thead>
           <tbody className="table_body">
-            {this.putRows()}
+            {
+              this.putRows()
+            }
           </tbody>
         </table>)
     );
