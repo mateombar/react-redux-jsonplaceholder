@@ -1,44 +1,35 @@
 import React, { Component } from 'react';
-import './Users.css';
 // Allows to connect a component with a reducer
 import { connect } from 'react-redux';
+import './Users.css';
+import * as usersAction from '../../actions/usersAction';
 
 class Users extends Component {
-  // componentDidMount() {
-  //   this.fetchCharacter();
-  // }
+  componentDidMount() {
+    this.fetchCharacter();
+  }
 
-  async fetchCharacter() {
+  fetchCharacter() {
     try {
-      // throw 'Error fetching data';
-      const data = await fetch('https://jsonplaceholder.typicode.com/users/');
-      const response = await data.json();
-      this.setState({
-        users: response
-      })
-      // fetch('https://jsonplaceholder.typicode.com/users/')
-      //   .then((response) => response.json())
-      //   .then((data) =>{
-      //     this.setState({
-      //       users: data
-      //     })
-      //   });
+      this.props.getTodos();
     } catch (error) {
       console.error(error)
     }
   }
-  // putRows = () => (
-  //   this.props.users.map(user => (
-  //     < tr key={user.id}>
-  //       <td>{user.name}</td>
-  //       <td>{user.email}</td>
-  //       <td><a href={user.link}>Rockers</a></td>
-  //     </tr >
-  //   ))
-  // );
+  putRows = () => (
+    this.props.users.map(user => (
+      < tr key={user.id}>
+        <td>{user.name}</td>
+        <td>{user.email}</td>
+        <td><a href={user.link}>Rockers</a></td>
+      </tr >
+    ))
+  );
   render() {
     return (
-      this.props.users ?
+      this.props.users.length === 0 ?
+        (<h3>Loading</h3>)
+        :
         (<table className="table">
           <thead className="table_header">
             <tr>
@@ -48,15 +39,13 @@ class Users extends Component {
             </tr>
           </thead>
           <tbody className="table_body">
-            {/* {this.putRows()} */}
+            {this.putRows()}
           </tbody>
         </table>)
-        :
-        (<h3>Loading</h3>)
     );
   }
 }
-const mapStateToProps = (state) => { 
-  return {users: state.usersReducer};
+const mapStateToProps = (state) => {
+  return state.usersReducer;
 }
-export default connect(mapStateToProps, {/*Actions Creators*/})(Users);
+export default connect(mapStateToProps, usersAction)(Users);
