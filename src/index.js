@@ -8,7 +8,8 @@ import reduxThunk from 'redux-thunk';
 import reducers from './reducers/index';
 
 import App from './components/App';
-import './index.css';
+import './styles/index.css';
+import './styles/icons.css';
 
 const store = createStore(
   reducers, //All Reducers
