@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as usersAction from '../../actions/usersAction';
 
+import Table from './Table';
 import Loader from '../Loader';
 import Error from '../Error';
-import './Users.css';
+import './css/Users.css';
 
 class Users extends Component {
   async componentDidMount() {
@@ -17,37 +18,20 @@ class Users extends Component {
     }
     if (this.props.error) {
       return (
-        <Error message={this.props.error}/>
+        <Error message={this.props.error} />
       )
     }
     return (
-      <table className="table">
-        <thead className="table_header">
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody className="table_body">
-          {
-            this.putRows()
-          }
-        </tbody>
-      </table>
+      <Table users={this.props.users}/>
     )
-
   }
-  putRows = () => this.props.users.map((user) => (
-    < tr key={user.id}>
-      <td>{user.name}</td>
-      <td>{user.email}</td>
-      <td><a href={user.link}>Rockers</a></td>
-    </tr >
-  ));
+
   render() {
     return (
-      this.putContent()
+      <React.Fragment>
+        <h1>Users</h1>
+        {this.putContent()}
+      </React.Fragment>
     );
   }
 }

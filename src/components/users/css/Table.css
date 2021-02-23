@@ -1,0 +1,15 @@
+.table_container {
+  overflow: auto;
+  width: 100%;
+  padding: 10px;
+}
+
+.table {
+  margin: 5px;
+  text-align: left;
+  width: 100%;
+}
+.table th,
+td {
+  padding: 15px;
+}
