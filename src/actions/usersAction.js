@@ -24,7 +24,7 @@ export const getTodos = () => async (dispatch) => {
     try {
         // const data = await fetch('https://jsonplaceholder.typicode.com/usersSSS/');
         // const response = await data.json();
-        const response = await axios.get('https://jsonplaceholder.typicode.com/users/')
+        const response = await axios.get('https://jsonplaceholder.typicode.com/usersS/')
         await dispatch({
             type: GET_TODOS,
             payload: response.data

@@ -1,0 +1,27 @@
+.error{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+}
+.error img{
+    height: 300px;
+    margin: 40px;
+}
+
+.error h3{
+    text-align: center;
+    letter-spacing: 5px;
+    color: black;
+}
+.error h5{
+    text-align: center;
+    font-weight: 700;
+    color: black;
+}
+
+@media only screen and (max-width: 750px){
+    .error img{
+        width: 100%;
+    }
+}
