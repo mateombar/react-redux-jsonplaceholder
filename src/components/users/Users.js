@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // Allows to connect a component with a reducer
 import { connect } from 'react-redux';
-import * as usersAction from '../../actions/usersAction';
+import * as usersActions from '../../actions/usersActions';
 
 import Table from './Table';
 import Loader from '../Loader';
@@ -10,7 +10,9 @@ import './css/Users.css';
 
 class Users extends Component {
   async componentDidMount() {
-    this.props.getTodos();
+    if (!this.props.users.length) {
+      this.props.getTodos();
+    }
   }
   putContent = () => {
     if (this.props.loading) {
@@ -22,7 +24,7 @@ class Users extends Component {
       )
     }
     return (
-      <Table users={this.props.users}/>
+      <Table users={this.props.users} />
     )
   }
 
@@ -38,4 +40,4 @@ class Users extends Component {
 const mapStateToProps = (state) => {
   return state.usersReducer;
 }
-export default connect(mapStateToProps, usersAction)(Users);
+export default connect(mapStateToProps, usersActions)(Users);
