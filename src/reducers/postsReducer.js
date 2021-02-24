@@ -9,11 +9,11 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case GET_TODOS:
-            return { ...state, posts: action.paylaod, error: '', loading: false }
+            return { ...state, posts: action.payload, error: '', loading: false }
         case LOADING:
             return { ...state, loading: true };
         case ERROR:
-            return { ...state, posts: [], error: action.paylaod, loading: false }
+            return { ...state, posts: [], error: action.payload, loading: false }
         default: return state;
     }
 }

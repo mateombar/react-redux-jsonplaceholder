@@ -5,16 +5,17 @@ import * as usersActions from '../../actions/usersActions';
 import * as postsActions from '../../actions/postsActions';
 
 const { getTodos: usersGetTodos } = usersActions;
-const { getTodos: postsGetTodos } = postsActions;
+const { getByUser: postsGetByUser } = postsActions;
 
 class Posts extends Component {
     urlParams = {
         userId: this.props.match.params.userId
     }
-    componentDidMount() {
+    async componentDidMount() {
         if (!this.props.usersReducer.users.length) {
-            this.props.usersGetTodos();
+            await this.props.usersGetTodos();
         }
+        this.props.postsGetByUser(this.urlParams.userId);
     }
     render() {
         console.log(this.props);
@@ -32,7 +33,7 @@ const mapStateToProps = ({ usersReducer, postsReducer }) => {
 }
 const mapDispatchToProps = {
     usersGetTodos,
-    postsGetTodos
+    postsGetByUser
 }
 // const mapStateToProps = (state) => {
 //     return { usersReducer: state.usersReducer, postsReducer: state.postsReducer };
