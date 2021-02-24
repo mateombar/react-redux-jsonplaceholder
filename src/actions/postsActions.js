@@ -1,7 +1,7 @@
 import { GET_BY_USER, LOADING, ERROR } from '../types/postsTypes';
 import * as usersTypes from '../types/usersTypes';
 
-const { GET_TODOS: USERS_GET_TODOS } = usersTypes;
+const { GET_TODOS: USERS_GET_TODOS, ERROR: USERS_ERROR } = usersTypes;
 
 
 export const getByUser = (u_id) => async (dispatch, getState) => {
@@ -22,11 +22,11 @@ export const getByUser = (u_id) => async (dispatch, getState) => {
             ...posts,
             data
         ]
-        const post_key_last = post_updated.length - 1
+        const post_id = post_updated.length - 1
         const users_updated = [...users];
         users_updated[u_id - 1] = {
             ...users[u_id - 1],
-            post_key_last
+            post_id
         }
         dispatch({
             type: USERS_GET_TODOS,
@@ -38,7 +38,7 @@ export const getByUser = (u_id) => async (dispatch, getState) => {
         });
     } catch (error) {
         dispatch({
-            type: ERROR,
+            type: USERS_ERROR,
             payload: error.message
         })
     }
