@@ -71,8 +71,8 @@ class Posts extends Component {
         if (!('post_id' in users[userId - 1])) return;
         const { post_id } = users[userId - 1]
         return posts[post_id].map(post => (
-            <React.Fragment>
-                <article className="Post__container" key={post.id} onClick={() => alert(post.id)}>
+            <React.Fragment  key={post.id}>
+                <article className="Post__container" onClick={() => alert(post.id)}>
                     <h3>{post.title}</h3>
                     <p>{post.body}</p>
                 </article>
