@@ -35,7 +35,7 @@ class Posts extends Component {
             match: { params: { userId } }
         } = this.props;
 
-        
+
         if (usersReducer.error) {
             return <Error message={usersReducer.error} />
         }
@@ -44,35 +44,40 @@ class Posts extends Component {
         }
         const user = usersReducer.users[userId - 1];
         return (
-            <h1>{user.name}'s Publications</h1>
+            <header>
+                <h2>{user.name}'s Publications</h2>
+            </header>
         )
     }
 
     putPost = () => {
         const {
             usersReducer,
-            usersReducer: {users},
+            usersReducer: { users },
             postsReducer,
-            postsReducer: {posts},
+            postsReducer: { posts },
             match: { params: { userId } }
         } = this.props;
-        if(!users.length) return;
-        if(usersReducer.error) return;
+        if (!users.length) return;
+        if (usersReducer.error) return;
 
-        if(postsReducer.loading){
-            return <Loader/>
+        if (postsReducer.loading) {
+            return <Loader />
         }
-        if(postsReducer.error){
-            return <Error message={postsReducer.error}/>
+        if (postsReducer.error) {
+            return <Error message={postsReducer.error} />
         }
-        if(!posts.length) return;
-        if(!('post_id' in users[userId - 1])) return;
-        const {post_id} = users[userId - 1]
-        return posts[post_id].map(post =>(
-            <article className="Post__container" key={post.id}>
-                <h2>{post.title}</h2>
-                <h3>{post.body}</h3>
-            </article>
+        if (!posts.length) return;
+        if (!('post_id' in users[userId - 1])) return;
+        const { post_id } = users[userId - 1]
+        return posts[post_id].map(post => (
+            <React.Fragment>
+                <article className="Post__container" key={post.id} onClick={() => alert(post.id)}>
+                    <h3>{post.title}</h3>
+                    <p>{post.body}</p>
+                </article>
+                <hr />
+            </React.Fragment>
         ))
     }
 

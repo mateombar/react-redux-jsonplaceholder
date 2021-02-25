@@ -33,7 +33,7 @@ export const getTodos = () => async (dispatch) => {
     } catch (error) {
         await dispatch({
             type: ERROR,
-            payload: error.message
+            payload: 'Users information not found'
         })
     }
 }
