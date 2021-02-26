@@ -54,8 +54,8 @@ export const getByUser = (u_id) => async (dispatch, getState) => {
     }
 }
 
-export const showComments = (posts_id, post_index) => async(dispatch, getState) =>{
-    const {posts} = getState().postsReducer; 
+export const openComments = (posts_id, post_index) => async (dispatch, getState) => {
+    const { posts } = getState().postsReducer;
     const selected = posts[posts_id][post_index]
 
     const updated = {
@@ -71,4 +71,32 @@ export const showComments = (posts_id, post_index) => async(dispatch, getState) 
         type: UPDATE,
         payload: post_updated
     });
+}
+
+export const getComments = (posts_id, post_index) => async (dispatch, getState) => {
+    const { posts } = getState().postsReducer;
+    const selected = posts[posts_id][post_index]
+
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`);
+        if (!response.ok) {
+            throw new Error(`HTTP Status: ${response.status}`)
+        }
+        const data = await response.json();
+        const updated = {
+            ...selected,
+            comments: data
+        }
+        const post_updated = [...posts]
+        post_updated[posts_id][post_index] = updated;
+
+        dispatch({
+            type: UPDATE,
+            payload: post_updated
+        });
+    } catch (error) {
+
+    }
+
+
 }

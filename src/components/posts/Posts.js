@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import Comments from './Comments';
 import Loader from '../Loader';
 import Error from '../Error';
 
@@ -9,7 +11,7 @@ import * as usersActions from '../../actions/usersActions';
 import * as postsActions from '../../actions/postsActions';
 
 const { getTodos: usersGetTodos } = usersActions;
-const { getByUser: postsGetByUser, showComments } = postsActions;
+const { getByUser: postsGetByUser, openComments, getComments } = postsActions;
 
 class Posts extends Component {
     async componentDidMount() {
@@ -75,18 +77,23 @@ class Posts extends Component {
 
     showInfo = (posts, post_id) => (posts[post_id].map((post, post_index) => (
         <React.Fragment key={post.id}>
-            <article className="Post__container" onClick={() => this.props.showComments(post_id, post_index)}>
+            <article className="Post__container" onClick={() => this.showComments(post_id, post_index, post.comments)}>
                 <h3>{post.title}</h3>
                 <p>{post.body}</p>
                 {
-                    post.open ? 'Open' : 'Close'
+                    post.open ? <Comments /> : ''
                 }
             </article>
             <hr />
         </React.Fragment>
-    ))
+    )))
 
-    )
+    showComments = (post_id, post_index, comments) => {
+        this.props.openComments(post_id, post_index);
+        if (!comments.length) {
+            this.props.getComments(post_id, post_index)
+        }
+    }
 
     render() {
         console.log(this.props);
@@ -104,6 +111,7 @@ const mapStateToProps = ({ usersReducer, postsReducer }) => {
 const mapDispatchToProps = {
     usersGetTodos,
     postsGetByUser,
-    showComments
+    openComments,
+    getComments
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
