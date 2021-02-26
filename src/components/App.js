@@ -2,14 +2,9 @@ import React, { Fragment } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Users from './users/Users';
+import Tasks from './tasks/Tasks';
 import Posts from './posts/Posts';
 import Navbar from './Navbar';
-const Tasks = (props) => (
-  <Fragment>
-    <h1>You are in tasks</h1>
-  </Fragment>
-)
-
 const App = (props) => (
   <BrowserRouter>
     <Navbar></Navbar>
