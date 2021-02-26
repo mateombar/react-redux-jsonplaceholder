@@ -1,9 +1,11 @@
-import { UPDATE, LOADING, ERROR } from '../types/postsTypes';
+import { UPDATE, LOADING, ERROR, COM_UPDATE, COM_LOADING, COM_ERROR } from '../types/postsTypes';
 
 const INITIAL_STATE = {
     posts: [],
     loading: false,
-    error: ''
+    error: '',
+    com_loading: false,
+    com_error: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -14,6 +16,12 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, loading: true };
         case ERROR:
             return { ...state, posts: [], error: action.payload, loading: false }
+        case COM_UPDATE:
+            return { ...state, posts: action.payload, error: '', loading: false, com_error: '', com_loading: false }
+        case COM_LOADING:
+            return { ...state, com_loading: true };
+        case COM_ERROR:
+            return { ...state, com_error: action.payload, com_loading: false }
         default: return state;
     }
 }

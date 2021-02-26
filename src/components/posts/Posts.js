@@ -67,6 +67,7 @@ class Posts extends Component {
             return <Loader />
         }
         if (postsReducer.error) {
+            console.log(postsReducer.error);
             return <Error message={postsReducer.error} />
         }
         if (!posts.length) return;
@@ -77,11 +78,12 @@ class Posts extends Component {
 
     showInfo = (posts, post_id) => (posts[post_id].map((post, post_index) => (
         <React.Fragment key={post.id}>
-            <article className="Post__container" onClick={() => this.showComments(post_id, post_index, post.comments)}>
+            <article className="Post__container" >
                 <h3>{post.title}</h3>
                 <p>{post.body}</p>
+                <button className="comments__button" onClick={() => this.showComments(post_id, post_index, post.comments)}>Comments</button>
                 {
-                    post.open ? <Comments /> : ''
+                    post.open ? <Comments comments={post.comments}/> : ''
                 }
             </article>
             <hr />

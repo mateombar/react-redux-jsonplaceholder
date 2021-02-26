@@ -9,9 +9,6 @@
   transition: 0.3s all ease;
   padding: 10px 0;
 }
-.Post__container:hover {
-  text-decoration: underline;
-}
 .Post__container h3 {
   font-family: "montserratregular";
 }
@@ -21,4 +18,21 @@
 .Post__container p {
   font-size: 1.1rem;
   font-family: "Open Sans";
+}
+
+.Post__container .comments__button{
+  padding: 5px 15px;
+  border-radius: 25px;
+  border: 1.5px solid rgb(177, 177, 177);
+  background-color: white;
+  cursor: pointer;
+}
+.Post__container .comments__button:hover{
+  background-color: rgb(177, 177, 177);
+}
+.Comments{
+  max-width: 600px;
+}
+.Comments__comment{
+ padding: 5px; 
 }

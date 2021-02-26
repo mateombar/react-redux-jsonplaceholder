@@ -1,4 +1,4 @@
-import { UPDATE, LOADING, ERROR } from '../types/postsTypes';
+import { UPDATE, LOADING, ERROR,COM_UPDATE, COM_LOADING, COM_ERROR } from '../types/postsTypes';
 import * as usersTypes from '../types/usersTypes';
 
 const { GET_TODOS: USERS_GET_TODOS } = usersTypes;
@@ -74,6 +74,9 @@ export const openComments = (posts_id, post_index) => async (dispatch, getState)
 }
 
 export const getComments = (posts_id, post_index) => async (dispatch, getState) => {
+    dispatch({
+        type: COM_LOADING
+    });
     const { posts } = getState().postsReducer;
     const selected = posts[posts_id][post_index]
 
@@ -91,11 +94,16 @@ export const getComments = (posts_id, post_index) => async (dispatch, getState) 
         post_updated[posts_id][post_index] = updated;
 
         dispatch({
-            type: UPDATE,
+            type: COM_UPDATE,
             payload: post_updated
         });
-    } catch (error) {
-
+    } catch (error) {        
+        console.log('oisadfsdfas');
+        console.error(error.message)
+        dispatch({
+            type: COM_ERROR,
+            payload: "Comments not found"
+        })
     }
 
 
