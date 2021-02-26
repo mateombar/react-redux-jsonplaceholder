@@ -9,7 +9,7 @@ import * as usersActions from '../../actions/usersActions';
 import * as postsActions from '../../actions/postsActions';
 
 const { getTodos: usersGetTodos } = usersActions;
-const { getByUser: postsGetByUser } = postsActions;
+const { getByUser: postsGetByUser, showComments } = postsActions;
 
 class Posts extends Component {
     async componentDidMount() {
@@ -70,16 +70,23 @@ class Posts extends Component {
         if (!posts.length) return;
         if (!('post_id' in users[userId - 1])) return;
         const { post_id } = users[userId - 1]
-        return posts[post_id].map(post => (
-            <React.Fragment  key={post.id}>
-                <article className="Post__container" onClick={() => alert(post.id)}>
-                    <h3>{post.title}</h3>
-                    <p>{post.body}</p>
-                </article>
-                <hr />
-            </React.Fragment>
-        ))
+        return this.showInfo(posts, post_id);
     }
+
+    showInfo = (posts, post_id) => (posts[post_id].map((post, post_index) => (
+        <React.Fragment key={post.id}>
+            <article className="Post__container" onClick={() => this.props.showComments(post_id, post_index)}>
+                <h3>{post.title}</h3>
+                <p>{post.body}</p>
+                {
+                    post.open ? 'Open' : 'Close'
+                }
+            </article>
+            <hr />
+        </React.Fragment>
+    ))
+
+    )
 
     render() {
         console.log(this.props);
@@ -96,6 +103,7 @@ const mapStateToProps = ({ usersReducer, postsReducer }) => {
 }
 const mapDispatchToProps = {
     usersGetTodos,
-    postsGetByUser
+    postsGetByUser,
+    showComments
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);

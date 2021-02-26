@@ -1,4 +1,4 @@
-import { GET_BY_USER, LOADING, ERROR } from '../types/postsTypes';
+import { UPDATE, LOADING, ERROR } from '../types/postsTypes';
 import * as usersTypes from '../types/usersTypes';
 
 const { GET_TODOS: USERS_GET_TODOS } = usersTypes;
@@ -18,12 +18,21 @@ export const getByUser = (u_id) => async (dispatch, getState) => {
             throw new Error(`HTTP Status: ${response.status}`)
         }
         const data = await response.json();
+
+        const news = data.map(post => (
+            {
+                ...post,
+                comments: [],
+                open: false
+            }
+        ));
+
         const post_updated = [
             ...posts,
-            data
+            news
         ]
         dispatch({
-            type: GET_BY_USER,
+            type: UPDATE,
             payload: post_updated
         });
         const post_id = post_updated.length - 1
@@ -43,4 +52,23 @@ export const getByUser = (u_id) => async (dispatch, getState) => {
             payload: "Posts not found"
         })
     }
+}
+
+export const showComments = (posts_id, post_index) => async(dispatch, getState) =>{
+    const {posts} = getState().postsReducer; 
+    const selected = posts[posts_id][post_index]
+
+    const updated = {
+        ...selected,
+        open: !selected.open
+    }
+
+    const post_updated = [...posts]
+    // post_updated[posts_id] = [...posts[posts_id]];
+    post_updated[posts_id][post_index] = updated;
+
+    dispatch({
+        type: UPDATE,
+        payload: post_updated
+    });
 }
