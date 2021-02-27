@@ -64,7 +64,7 @@ export const openComments = (posts_id, post_index) => async (dispatch, getState)
     }
 
     const post_updated = [...posts]
-    // post_updated[posts_id] = [...posts[posts_id]];
+    post_updated[posts_id] = [...posts[posts_id]];
     post_updated[posts_id][post_index] = updated;
 
     dispatch({
@@ -91,6 +91,7 @@ export const getComments = (posts_id, post_index) => async (dispatch, getState) 
             comments: data
         }
         const post_updated = [...posts]
+        post_updated[posts_id] = [...posts[posts_id]];
         post_updated[posts_id][post_index] = updated;
 
         dispatch({
